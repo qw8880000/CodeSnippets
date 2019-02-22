@@ -1,7 +1,7 @@
 @echo off
 
-set FILE=test.conf
-set TEMPFILE=test.conf.modify
+set FILE=modify_file_test.txt
+set TEMPFILE=modify_file_test.txt.temp
 
 ::
 :: 按行处理文件，包括空行
