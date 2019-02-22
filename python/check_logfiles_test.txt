@@ -1,0 +1,28 @@
+2018.11.21 [error] This is a message.
+2018.11.21 [info] This is a message.
+2018.11.21 [debug] This is a message.
+2018.11.21 [exception] This is a message.
+
+2018.11.21 error This is a message.
+2018.11.21 info This is a message.
+2018.11.21 debug This is a message.
+2018.11.21 exception This is a message.
+
+2018.11.21 [Error] This is a message.
+2018.11.21 [Info] This is a message.
+2018.11.21 [Debug] This is a message.
+2018.11.21 [Exception] This is a message.
+
+2018.11.21 [ErroR] This is a message.
+2018.11.21 [InfO] This is a message.
+2018.11.21 [DebuG] This is a message.
+2018.11.21 [ExceptioN] This is a message.
+
+2018.11.21-Error This is a message.
+2018.11.21-Info This is a message.
+2018.11.21-Debug This is a message.
+2018.11.21-Exception This is a message.
+2018.12.15-Error This is a message.
+2018.12.15-Info This is a message.
+2018.12.15-Debug This is a message.
+2018.12.15-Exception This is a message.
