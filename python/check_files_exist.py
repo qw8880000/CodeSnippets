@@ -29,7 +29,7 @@ def string_substitute(string_template):
     """
 
     substitute_string = copy.copy(string_template)
-    groups = re.findall(r'(\{.*\}?)', string_template)        # ? 表示非贪婪匹配
+    groups = re.findall(r'(\{.*?\})', string_template)        # ? 表示非贪婪匹配
 
     if len(groups) <= 0:
         return string_template
