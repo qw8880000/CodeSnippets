@@ -35,8 +35,8 @@ def string_substitute(string_template):
         if res == None:
             continue
 
-        key = res.group(1)
-        format_pattern = res.group(2)
+        key = res.group(1).strip()
+        format_pattern = res.group(2).strip()
         value = None
 
         if key == 'today':
