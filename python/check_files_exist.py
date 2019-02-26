@@ -1,4 +1,12 @@
 # -*- coding: utf-8 -*-
+
+#
+# `check_files_exist.py` 用来测试多个文件是否存在。
+# 
+# 例子：
+#    * `python check_files_exist.py -f "./check_logfiles_test.txt"`
+#    * `python check_files_exist.py -p "./check_logfiles_test-{today | %Y%m%d}.txt"`
+#
 import os
 import sys
 import argparse
