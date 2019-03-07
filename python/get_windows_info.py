@@ -73,9 +73,9 @@ def get_ip_total():
         ip = interface.IPAddress[0]
         ip_total.append(ip)
 
-    return ip_total
+    return ",".join(ip_total)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     windows_info = {
             "os_type": get_os_type(),
             "os_hostname": get_os_hostname(),

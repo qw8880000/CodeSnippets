@@ -34,13 +34,28 @@ else
   IP_TOTAL="null"
 fi
 
-echo "os_type=$OS_TYPE"
-echo "os_hostname=$OS_HOSTNAME"
-echo "os_information=$OS_INFORMATION"
-echo "os_machine=$OS_MACHINE"
-echo "cpu_freq=$CPU_FREQ"
-echo "cpu_logic_cores=$CPU_LOGIC_CORES"
-echo "mem_total=$MEM_TOTAL"
-echo "disk_total=$DISK_TOTAL"
-echo "ip_total=$IP_TOTAL"
+function format_json_string {
+  key=$1
+  value=$2
+  echo \"$key\":\"$value\"
+}
+
+function format_json_int {
+  key=$1
+  value=$2
+  echo \"$key\":$value
+}
+
+# 输出json格式
+echo \{\
+$(format_json_string "os_type" "$OS_TYPE"),\
+$(format_json_string "os_hostname" "$OS_HOSTNAME"),\
+$(format_json_string "os_information" "$OS_INFORMATION"),\
+$(format_json_string "os_machine" "$OS_MACHINE"),\
+$(format_json_int "cpu_freq" "$CPU_FREQ"),\
+$(format_json_int "cpu_logic_cores" "$CPU_LOGIC_CORES"),\
+$(format_json_int "mem_total" "$MEM_TOTAL"),\
+$(format_json_int "disk_total" "$DISK_TOTAL"),\
+$(format_json_string "ip_total" "$IP_TOTAL")\
+\}
 
