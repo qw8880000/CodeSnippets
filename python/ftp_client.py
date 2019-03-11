@@ -7,9 +7,8 @@ import logging
 from ftplib import FTP
 
 # =============================================
-# ftp_client -s "198.25.101.183" -u "" -p "" --local "" --remote "" --download
-# ftp_client -s "198.25.101.183" -u "" -p "" --local "" --remote "" --upload
-#
+# 下载：ftp_client.py -s "198.25.101.183" -u "" -p "" --local "" --remote "" --download
+# 上传：ftp_client.py -s "198.25.101.183" -u "" -p "" --local "" --remote "" --upload
 # =============================================
 
 #从ftp下载文件
