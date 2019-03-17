@@ -29,15 +29,6 @@ def get_os_machine():
     """
     return platform.machine()
 
-def get_cpu_freq():
-    """ 获取CPU主频，单位MHz
-    """
-    cpu_freq = 0
-    for processor in mywmi.Win32_Processor():
-        cpu_freq += processor.MaxClockSpeed
-
-    return cpu_freq
-
 def get_cpu_logic_cores():
     """获取CPU逻辑核数
     """
@@ -45,7 +36,7 @@ def get_cpu_logic_cores():
     for processor in mywmi.Win32_Processor():
         cpu_cores += processor.NumberOfCores
 
-    return cpu_cores
+    return str(cpu_cores)
 
 def get_mem_total():
     """获取内存
@@ -54,7 +45,7 @@ def get_mem_total():
     for Memory in mywmi.Win32_PhysicalMemory():
         mem_total += int(Memory.Capacity)
 
-    return mem_total
+    return str(mem_total)
 
 def get_disk_total():
     """获取硬盘容量
@@ -63,7 +54,7 @@ def get_disk_total():
     for physical_disk in mywmi.Win32_DiskDrive():
         disk_total += int(physical_disk.Size)
 
-    return disk_total
+    return str(disk_total)
 
 def get_ip_total():
     """获取所有的IP地址
@@ -82,7 +73,6 @@ if __name__ == "__main__":
             "os_information": get_os_information(),
             "os_machine": get_os_machine(),
             "cpu_logic_cores": get_cpu_logic_cores(),
-            "cpu_freq": get_cpu_freq(),
             "mem_total": get_mem_total(),
             "disk_total": get_disk_total(),
             "ip_total": get_ip_total()
