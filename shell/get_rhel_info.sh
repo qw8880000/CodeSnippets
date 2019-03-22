@@ -16,16 +16,44 @@ OS_MACHINE=$(uname -m)
 CPU_LOGIC_CORES=$(cat /proc/cpuinfo | grep "processor" | wc -l)
 
 # 总内存（单位字节）
-MEM_TOTAL=$(free | grep Mem | awk '{print  $2}')
+MEM_TOTAL=$(free -b | grep Mem | awk '{print $2}')
 
 # 总硬盘（单位字节）
 DISK_TOTAL=$(fdisk -l | grep "Disk /dev/"| grep -v "/dev/mapper" | awk -F [" ",]+ '{sum+=$5} END {print sum}')
 
 # 所有的IP地址
 if [[ $OS_INFORMATION =~ "7." ]]; then
-  IP_TOTAL=$(ifconfig | grep "inet" | grep -v "inet6\|127.0.0.1" | awk '{if(NR==1){ip=$2}else{ip=ip","$2}} END{print ip}')
+  IP_TOTAL=$(ifconfig | grep "inet.*netmask" | grep -v "inet6\|127.0.0.1" | \
+    awk 'BEGIN{count=0;} \
+    {ip[count]=$2;mask[count]=$4;count++;} \
+    END{\
+      item="";\
+      for(i=0;i<count;i++){\
+        if(i==0){item=ip[i]"|"mask[i]}\
+        else{item=item","ip[i]"|"mask[i]}\
+      }\
+      print item;
+    }')
 else
-  IP_TOTAL=$(ifconfig | grep "inet addr" | grep -v "127.0.0.1" | awk -F [" ":]+ '{if(NR==1){ip=$4}else{ip=ip","$4}} END{print ip}')
+  IP_TOTAL=$(ifconfig | grep "inet addr" | grep -v "127.0.0.1" | \
+    sed 's/.*inet addr:\([0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}\).*Mask:\([0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}\)/\1 \2/g' | \
+    awk 'BEGIN{count=0;} \
+    {ip[count]=$1;mask[count]=$2;count++;} \
+    END{\
+      item="";\
+      for(i=0;i<count;i++){\
+        if(i==0){item=ip[i]"|"mask[i]}\
+        else{item=item","ip[i]"|"mask[i]}\
+      }\
+      print item;
+    }')
+fi
+
+# 是否是虚拟机
+if [[ $(dmidecode -s system-product-name | grep "VMware") != "" ]]; then
+  IS_VIRTUAL="true"
+else
+  IS_VIRTUAL="false"
 fi
 
 function format_json_string {
@@ -36,6 +64,8 @@ function format_json_string {
 
 # 输出json格式
 echo \{\
+$(format_json_string "myver" "1.0"),\
+$(format_json_string "is_virtual" "$IS_VIRTUAL"),\
 $(format_json_string "os_type" "$OS_TYPE"),\
 $(format_json_string "os_hostname" "$OS_HOSTNAME"),\
 $(format_json_string "os_information" "$OS_INFORMATION"),\

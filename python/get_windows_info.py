@@ -66,8 +66,19 @@ def get_ip_total():
 
     return ",".join(ip_total)
 
+def is_virtual():
+    """ 判断是否是虚拟机
+    """
+    product = mywmi.Win32_ComputerSystemProduct()[0]
+    if product.name.find("VMware") != -1:
+        return "true"
+    else:
+        return "false"
+
 if __name__ == "__main__":
     windows_info = {
+            "myver": "1.0",
+            "is_virtual": is_virtual(),
             "os_type": get_os_type(),
             "os_hostname": get_os_hostname(),
             "os_information": get_os_information(),
